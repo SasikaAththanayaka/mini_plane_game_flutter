@@ -59,9 +59,50 @@ class _HomePageState extends State<HomePage> {
                   child: MyPlane(),
                 ),
               )),
+          Container(
+            height: 25.0,
+            color: Colors.green,
+          ),
           Expanded(
               child: Container(
-            color: Colors.green,
+            color: Colors.brown,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Score",
+                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
+                      "0",
+                      style: TextStyle(color: Colors.white, fontSize: 30.0),
+                    ),
+                  ],
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Best",
+                      style: TextStyle(color: Colors.white, fontSize: 20.0),
+                    ),
+                    SizedBox(
+                      height: 20.0,
+                    ),
+                    Text(
+                      "10",
+                      style: TextStyle(color: Colors.white, fontSize: 30.0),
+                    ),
+                  ],
+                )
+              ],
+            ),
           )),
         ],
       ),
