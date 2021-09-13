@@ -43,22 +43,35 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Expanded(
-              flex: 2,
-              child: GestureDetector(
-                onTap: () {
-                  if (gameHasStarted) {
-                    jump();
-                  } else {
-                    startGame();
-                  }
-                },
-                child: AnimatedContainer(
-                  alignment: Alignment(0, planeYAxis),
-                  duration: Duration(milliseconds: 0),
-                  color: Colors.blue,
-                  child: MyPlane(),
+            flex: 2,
+            child: Stack(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (gameHasStarted) {
+                      jump();
+                    } else {
+                      startGame();
+                    }
+                  },
+                  child: AnimatedContainer(
+                    alignment: Alignment(0, planeYAxis),
+                    duration: Duration(milliseconds: 0),
+                    color: Colors.blue,
+                    child: MyPlane(),
+                  ),
                 ),
-              )),
+                Container(
+                  alignment: Alignment(0, -0.3),
+                  child: gameHasStarted
+                      ? Text("")
+                      : Text("T A P  T O  P L A Y",
+                          style:
+                              TextStyle(fontSize: 20.0, color: Colors.white)),
+                ),
+              ],
+            ),
+          ),
           Container(
             height: 25.0,
             color: Colors.green,
