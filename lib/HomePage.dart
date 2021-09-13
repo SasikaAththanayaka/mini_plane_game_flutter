@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:mini_plane/MyPlane.dart';
 
@@ -7,6 +9,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  static double planeYAxis = 0;
+  double time = 0;
+  double height = 0;
+  double initialHeight = planeYAxis;
+  bool gameHasStarted = false;
+
+  void jump() {
+    setState(() {
+      time = 0;
+      initialHeight = planeYAxis;
+    });
+  }
+
+  void startGame() {
+    gameHasStarted = true;
+    Timer.periodic(Duration(milliseconds: 60), (timer) {
+      time += 0.05;
+      height = -4.9 * time * time + 2.8 * time;
+      setState(() {
+        planeYAxis = initialHeight - height;
+      });
+      if (planeYAxis > 1) {
+        timer.cancel();
+        gameHasStarted = false;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,11 +44,20 @@ class _HomePageState extends State<HomePage> {
         children: [
           Expanded(
               flex: 2,
-              child: AnimatedContainer(
-                alignment: Alignment(0, 0),
-                duration: Duration(milliseconds: 0),
-                color: Colors.blue,
-                child: MyPlane(),
+              child: GestureDetector(
+                onTap: () {
+                  if (gameHasStarted) {
+                    jump();
+                  } else {
+                    startGame();
+                  }
+                },
+                child: AnimatedContainer(
+                  alignment: Alignment(0, planeYAxis),
+                  duration: Duration(milliseconds: 0),
+                  color: Colors.blue,
+                  child: MyPlane(),
+                ),
               )),
           Expanded(
               child: Container(
